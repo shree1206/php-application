@@ -6,7 +6,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: welcome");
     exit;
 }
-
+$message = '';
+$flag = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -24,11 +25,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssi", $username, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
-        echo "Registration successful!";
+        $flag = true;
+        header("Location: signup?status=" . $flag);
+        exit;
     } else {
-        echo "Error: " . $sql . "<br>" . $db1->error;
+        header("Location: signup?status=" . $flag);
+        exit;
     }
     $stmt->close();
+}
+
+
+
+if (isset($_GET['status'])) {
+    $flag = htmlspecialchars($_GET['status']);
+    if ($flag) {
+        $message = "Registration successful!";
+    } else {
+        $message = "";
+    }
 }
 ?>
 
@@ -37,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
         <div class="card-body">
+            <p class="text-center text-success"><?php echo htmlspecialchars($message); ?></p>
             <h2 class="card-title text-center mb-4">Sign Up</h2>
             <form action="signup" method="post">
                 <div class="mb-3">
