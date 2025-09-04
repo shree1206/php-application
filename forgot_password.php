@@ -1,7 +1,7 @@
 <?php
 // Include the database connection and Composer's autoloader
 require_once __DIR__ . '/includes/connection.php';
-
+require_once __DIR__ . '/includes/header.php';
 // Check if the user is already logged in, then redirect to the welcome page
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: welcome");
@@ -73,23 +73,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Forgot Password</h2>
+            <p class="text-center text-info"><?php echo htmlspecialchars($message); ?></p>
+            <form action="forgot_password.php" method="post">
+                <div class="mb-3">
+                    <label for="email_or_username" class="form-label">Enter Email or Username:</label>
+                    <input type="text" id="email_or_username" name="email_or_username" class="form-control" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                </div>
+            </form>
+            <p class="text-center mt-3">
+                Already have an account? <a href="<?php echo BASE_URL; ?>/login">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Forgot Password</title>
-</head>
-
-<body>
-    <h2>Forgot Password</h2>
-    <p><?php echo $message; ?></p>
-    <form action="forgot_password.php" method="post">
-        <label>Enter Email or Username:</label><br>
-        <input type="text" name="email_or_username" required><br><br>
-        <button type="submit">Send Reset Link</button>
-    </form>
-    <p>Already have an account?<a href="<?php echo BASE_URL; ?>/login">Login here</a></p>
-</body>
-
-</html>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

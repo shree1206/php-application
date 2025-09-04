@@ -1,7 +1,6 @@
 <?php
 // Include your database connection file
 require_once __DIR__ . '/includes/connection.php';
-
 // Check if the user is already logged in, then redirect to the welcome page
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: welcome");
@@ -45,69 +44,78 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     exit; // Stop execution to prevent HTML from being sent
 }
 ?>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+        <div class="card-body">
+            <h2 class="card-title text-center">Login</h2>
+            <form id="loginForm" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+            <p class="text-center mt-3">
+                Forgot Password? <a href="<?php echo BASE_URL; ?>/forgot_password">Click Here</a>
+            </p>
+            <div id="loader" class="text-center mt-3" style="display:none;">Loading...</div>
+            <div id="message" class="mt-3"></div>
+        </div>
+    </div>
+</div>
 
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Login</title>
-</head>
+<script>
+    // JavaScript for handling the form submission via AJAX
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const loader = document.getElementById('loader');
+    const messageDiv = document.getElementById('message');
 
-<body>
-    <h2>Login</h2>
-    <form id="loginForm" method="post">
-        <label>Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
-        <label>Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit" id="loginBtn">Login</button>
-    </form>
-    <p>Forgot Password? <a href="<?php echo BASE_URL; ?>/forgot_password">Click Here</a></p>
-    <div id="loader" style="display:none;">Loading...</div>
-    <div id="message"></div>
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-    <script>
-        // JavaScript for handling the form submission via AJAX
-        const loginForm = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
-        const loader = document.getElementById('loader');
-        const messageDiv = document.getElementById('message');
+        loginBtn.disabled = true;
+        loader.style.display = 'block';
+        messageDiv.innerHTML = '';
 
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault();
+        const formData = new FormData(loginForm);
 
-            loginBtn.disabled = true;
-            loader.style.display = 'block';
-            messageDiv.innerHTML = '';
+        fetch('login', {
+            method: 'POST',
+            body: formData,
+            // Add a custom header to identify the AJAX request on the server side
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
 
-            const formData = new FormData(loginForm);
-
-            fetch('login', {
-                method: 'POST',
-                body: formData,
-                // Add a custom header to identify the AJAX request on the server side
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
+                    window.location.href = 'welcome';
+                } else {
+                    messageDiv.innerHTML = `<span style="color: red;">${data.message}</span>`;
                 }
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = 'welcome';
-                    } else {
-                        messageDiv.innerHTML = `<span style="color: red;">${data.message}</span>`;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    messageDiv.innerHTML = `<span style="color: red;">An error occurred. Please try again.</span>`;
-                })
-                .finally(() => {
-                    loginBtn.disabled = false;
-                    loader.style.display = 'none';
-                });
-        });
-    </script>
-</body>
+            .catch(error => {
+                console.error('Error:', error);
+                messageDiv.innerHTML = `<span style="color: red;">An error occurred. Please try again.</span>`;
+            })
+            .finally(() => {
+                loginBtn.disabled = false;
+                loader.style.display = 'none';
+            });
+    });
+</script>
+<?php
 
-</html>
+require_once __DIR__ . '/includes/footer.php';
+?>

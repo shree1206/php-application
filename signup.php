@@ -32,25 +32,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>Sign Up</title>
-</head>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Sign Up</h2>
+            <form action="signup" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+            </form>
+            <p class="text-center mt-3">
+                Already have an account?<a href="<?php echo BASE_URL; ?>/login">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
 
-<body>
-    <h2>Sign Up</h2>
-    <form action="signup" method="post">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
-        <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account?<a href="<?php echo BASE_URL; ?>/login">Login here</a></p>
-</body>
-
-</html>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
