@@ -17,7 +17,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $sql = "SELECT id, password FROM users WHERE username = ?";
+        $sql = "SELECT id, password, role FROM users WHERE username = ?";
         $db1 = connectToDatabase('user_auth');
         $stmt = $db1->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -30,6 +30,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
                 $_SESSION['loggedin'] = true;
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['username'] = $username;
+                $_SESSION['role'] = $user['role'];
                 echo json_encode(['success' => true]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);

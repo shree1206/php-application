@@ -15,10 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    // Set the role for a new user to 2
+    $role = 2;
+
+    $sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
     $db1 = connectToDatabase('user_auth');
     $stmt = $db1->prepare($sql);
-    $stmt->bind_param("sss", $username, $email, $hashed_password);
+    $stmt->bind_param("sssi", $username, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
         echo "Registration successful!";

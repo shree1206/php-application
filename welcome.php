@@ -6,19 +6,21 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: login");
     exit;
 }
+
+// Redirect based on the user's role
+switch ($_SESSION['role']) {
+    case 1:
+        // Redirect to admin dashboard if role is 1
+        header("location: admin");
+        exit;
+    case 2:
+        // Redirect to user dashboard if role is 2
+        header("location: user");
+        exit;
+    default:
+        // Default redirect for an unknown role
+        header("location: login");
+        exit;
+}
+
 ?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Welcome</title>
-</head>
-
-<body>
-    <h2>Welcome, <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
-    <p>You have successfully logged in.</p>
-    <p><a href="<?php echo BASE_URL; ?>/logout">Logout</a></p>
-</body>
-
-</html>
