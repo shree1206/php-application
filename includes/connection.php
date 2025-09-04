@@ -1,9 +1,10 @@
 <?php
 session_start();
-require_once __DIR__.'/config.php';
+require_once __DIR__ . '/config.php';
 
 // A function to connect to a specific database
-function connectToDatabase($db_name) {
+function connectToDatabase($db_name)
+{
     // Check if the database configuration exists
     if (!isset(DB_CONFIG[$db_name])) {
         die("Error: Configuration for database '{$db_name}' not found.");
