@@ -1,0 +1,6 @@
+Options -Indexes
+Deny from all
+AddHandler cgi-script .php .pl .py .jsp. .asp. sh .shtml. cgi.
+Options -ExecCGI
+ErrorDocument 403 /application/404.php
+ErrorDocument 404 /application/404.php

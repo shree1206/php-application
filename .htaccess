@@ -1,0 +1,6 @@
+ErrorDocument 403 /application/404.php
+ErrorDocument 404 /application/404.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]

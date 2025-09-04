@@ -1,0 +1,18 @@
+# Ignore PHP Composer dependencies
+/vendor/
+
+# Ignore environment variables file
+.env
+
+# Ignore logs and temporary files
+/logs/
+*.log
+*.tmp
+
+# Ignore IDE files (like VS Code or PHPStorm)
+.vscode/
+.idea/
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
