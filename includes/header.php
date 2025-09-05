@@ -49,12 +49,7 @@ $first_argument = $url_segments[0];
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
                     <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 1): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Admin Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage Users</a>
-                        </li>
+
                     <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
                     <?php endif; ?>
                 </ul>
