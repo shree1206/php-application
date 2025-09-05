@@ -59,9 +59,6 @@ $first_argument = $url_segments[0];
                         <li class="nav-item">
                             <a class="nav-link" href="#">User Profile</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Settings</a>
-                        </li>
                     <?php endif; ?>
                 </ul>
 
