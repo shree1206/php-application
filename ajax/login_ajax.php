@@ -21,7 +21,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['role'] = $user['role'];
-                echo json_encode(['success' => true]);
+                echo json_encode(['success' => true, 'message' => 'Successfully LoggedIn.']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
             }

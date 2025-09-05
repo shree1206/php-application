@@ -14,7 +14,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
         <div class="card-body">
             <h2 class="card-title text-center">Login</h2>
-            <form id="loginForm" method="post">
+            <div id="message" class="mt-3 alert alert-danger alert-dismissible fade show" role="alert"
+                style="display: none;">
+                <span id="message-text"></span>
+            </div>
+            <form id="loginForm" method="post" autocomplete="off">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
                     <input type="text" id="username" name="username" class="form-control" required>
@@ -31,7 +35,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 Forgot Password? <a href="<?php echo BASE_URL; ?>/forgot_password">Click Here</a>
             </p>
             <div id="loader" class="text-center mt-3" style="display:none;">Loading...</div>
-            <div id="message" class="mt-3"></div>
         </div>
     </div>
 </div>
