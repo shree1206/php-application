@@ -77,7 +77,8 @@ $first_argument = $url_segments[0];
                                 <i class="fa fa-user"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
-                                <li><a class="dropdown-item" href="#">Password Change</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/password_change">Password
+                                        Change</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
