@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <?php require_once __DIR__ . '/includes/header.php'; ?>
-<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+<div class="container-fluid d-flex justify-content-center align-items-center" style="margin-top: 12px;">
     <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Forgot Password</h2>
