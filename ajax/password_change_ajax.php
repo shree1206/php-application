@@ -18,6 +18,11 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
+        if ($newpassword !== $confirmpassword) {
+            echo json_encode(['success' => false, 'message' => 'New password and Old Password does not matched.']);
+            exit;
+        }
+
         $db1 = connectToDatabase('user_auth');
         if ($db1 === null) {
             echo json_encode(['success' => false, 'message' => 'Database connection failed.']);
@@ -49,8 +54,8 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $stmt_verify->close();
 
         $newpassword_hash = password_hash($newpassword, PASSWORD_DEFAULT);
-
-        $sql_update = "UPDATE users SET password = ? WHERE username = ?";
+        $updated_at = date('Y-m-d H:i:s');
+        $sql_update = "UPDATE users SET password = ?, updated_at = ? WHERE username = ?";
         $stmt_update = $db1->prepare($sql_update);
 
         if ($stmt_update === false) {
@@ -59,7 +64,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $stmt_update->bind_param("ss", $newpassword_hash, $username);
+        $stmt_update->bind_param("sss", $newpassword_hash, $updated_at, $username);
 
         if ($stmt_update->execute()) {
             echo json_encode(['success' => true, 'message' => 'Password updated successfully.']);

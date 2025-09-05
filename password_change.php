@@ -14,7 +14,13 @@ if (!isset($_SESSION['loggedin']) && !$_SESSION['loggedin'] === true) {
     <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
         <div class="card-body">
             <h2 class="card-title text-center">Password Change</h2>
-            <div id="message" class="mt-3"></div>
+
+
+            <div id="message" class="mt-3 alert alert-danger alert-dismissible fade show" role="alert"
+                style="display: none;">
+                <span id="message-text"></span>
+            </div>
+
             <form id="passwordChangeForm" method="post">
                 <div class="mb-3">
                     <label for="oldpassword" class="form-label">Old Password:</label>
