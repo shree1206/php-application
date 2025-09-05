@@ -4,11 +4,14 @@ if (!defined('INSIDE_APP')) {
     exit;
 }
 ?>
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+<div class="container d-flex justify-content-center align-items-center" style="margin-top:12px;">
+    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 500px;">
         <div class="card-body">
             <h2 class="card-title text-center">Registraion</h2>
-            <div id="message" class="mt-3"></div>
+            <div id="message" class="mt-3 alert alert-danger alert-dismissible fade show" role="alert"
+                style="display: none;">
+                <span id="message-text"></span>
+            </div>
             <form id="registrationForm" method="post">
                 <div class="mb-3">
                     <label for="full_name" class="form-label">Full Name</label>
