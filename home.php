@@ -321,7 +321,7 @@ if (!defined('APP_INIT')) {
     <body>
 
         <header class="header">
-            <h1>Caller Dictionary</h1>
+            <h1>City Dictionary</h1>
             <p>Find the right people and places with our extensive database.</p>
         </header>
 

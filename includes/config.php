@@ -2,7 +2,7 @@
 $current_path = __DIR__;
 $parent_path = dirname($current_path);
 
-require $parent_path."/vendor/autoload.php";
+require $parent_path . "/vendor/autoload.php";
 
 // Set the base URL dynamically
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
@@ -13,16 +13,16 @@ $base_url = $protocol . "://" . $host . "/" . $directory;
 $url_path = trim(dirname($_SERVER['PHP_SELF']), '/\\');
 $path_parts = explode('/', $url_path);
 $app_directory = $path_parts[0];
- 
-$dotenv = Dotenv\Dotenv::createImmutable($protocol . "://" . $host . "/".$app_directory);
+
+$dotenv = Dotenv\Dotenv::createImmutable($protocol . "://" . $host . "/" . $app_directory);
 $dotenv->load();
 
 $app_env = $_ENV['APP_ENV'] ?? $_SERVER['APP_ENV'] ?? getenv('APP_ENV');
 
 //SMTP configuration
-$smtp_username="chaudharyvaibhav1206@gmail.com";
-$smtp_password="vdgmdkizywmiwynf";
-$sent_from="chaudharyvaibhav1206@gmail.com";
+$smtp_username = "chaudharyvaibhav1206@gmail.com";
+$smtp_password = "vdgmdkizywmiwynf";
+$sent_from = "chaudharyvaibhav1206@gmail.com";
 
 // Use this value in your configuration
 switch ($app_env) {
@@ -54,6 +54,12 @@ define('DB_CONFIG', [
         'username' => 'root',
         'password' => '',
         'db_name' => 'user_auth'
+    ],
+    'user_data' => [
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'db_name' => 'user_data'
     ],
 ]);
 
