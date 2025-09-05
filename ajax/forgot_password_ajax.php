@@ -78,5 +78,8 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
     header('Content-Type: application/json');
     ob_end_flush();
     exit;
+} else {
+    header("Location: ../index.php");
+    exit;
 }
 ?>
