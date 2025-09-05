@@ -21,11 +21,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <form id="loginForm" method="post" autocomplete="off">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
-                    <input type="text" id="username" name="username" class="form-control" required>
+                    <input type="text" id="username" name="username" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
+                    <input type="password" id="password" name="password" class="form-control">
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>

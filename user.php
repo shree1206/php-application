@@ -22,6 +22,67 @@ $hasBusinessData = hasBusinessData();
 <?php if (!$hasBusinessData): ?>
     <?php require_once __DIR__ . '/customerPortal/business/addBusinessDetails.php'; ?>
 <?php else: ?>
+    <style>
+        .waving-boy-container {
+            /* Screen ke bottom-right mein fix karta hai */
+            position: fixed;
+            right: 20px;
+            bottom: 0;
+            height: 200px;
+            width: 400px;
+            overflow: hidden;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .waving-boy-container img {
+            width: 50%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .waving-boy-container {
+                bottom: 0px;
+                height: 200px;
+                width: 130px;
+                right: 10px;
+            }
+
+            .waving-boy-container img {
+                bottom: 0px;
+                /* Chota karne ke liye size kam karein */
+                height: 200px;
+                width: 130px;
+                right: 10px;
+            }
+
+            .contact-us-text {
+                position: absolute;
+                bottom: 2px;
+                left: 70%;
+                transform: translateX(-50%);
+                background-color: red;
+                color: white;
+                padding: 12px 15px;
+                border-radius: 20px;
+                /* font-size: 14px; */
+                white-space: nowrap;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .contact-us-text {
+            position: absolute;
+            bottom: 2px;
+            left: 41%;
+            background-color: darkred;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 20px;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
     <div class="alert alert-success mt-4">
         You have already registered your business! You can view or edit your details.
     </div>
@@ -46,6 +107,13 @@ $hasBusinessData = hasBusinessData();
                     <div class="list-group-item"><strong>Status:</strong> <span id="status"></span></div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="waving-boy-container">
+        <img src="/application/gif/phone.gif" alt="Waving Boy">
+
+        <div class="contact-us-text">
+            Contact Us
         </div>
     </div>
     <script src="/application/js/view_business_ajax.js"></script>
