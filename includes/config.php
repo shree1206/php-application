@@ -8,7 +8,7 @@ require $parent_path . "/vendor/autoload.php";
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'];
 $directory = trim(dirname($_SERVER['PHP_SELF']), '/\\');
-$base_url = $protocol . "://" . $host . "/" . $directory;
+$base_url = $protocol . "://" . $host . "/application";
 
 $url_path = trim(dirname($_SERVER['PHP_SELF']), '/\\');
 $path_parts = explode('/', $url_path);
