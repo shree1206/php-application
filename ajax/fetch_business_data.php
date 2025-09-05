@@ -5,9 +5,10 @@ require_once __DIR__ . '/../includes/connection.php';
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] == "GET") {
 
     // Check if user is logged in and has the correct role
-    if (isset($_SESSION['id']) && $_SESSION['role'] == 2) {
+    if (isset($_SESSION['id']) && $_SESSION['role'] == 2 && isset($_SESSION['prefixed_user_id'])) {
 
-        $user_id = $_SESSION['id'];
+        $userId = $_SESSION['id'];
+        $prefixed_user_id = $_SESSION['prefixed_user_id'];
 
         $db2 = connectToDatabase('user_data');
         if ($db2 === null) {
@@ -24,7 +25,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $prefixed_user_id);
         $stmt->execute();
         $result = $stmt->get_result();
 

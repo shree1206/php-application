@@ -12,6 +12,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $username = $_SESSION['username'];
         $userrole = $_SESSION['role'];
         $userID = $_SESSION['id'];
+        $prefixed_user_id = $_SESSION['prefixed_user_id'];
 
         if (empty($oldpassword) || empty($newpassword) || empty($confirmpassword)) {
             echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -29,9 +30,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $sql_verify = "SELECT password FROM users WHERE username = ?";
+        $sql_verify = "SELECT password FROM users WHERE username = ? AND prefixed_user_id = ?";
         $stmt_verify = $db1->prepare($sql_verify);
-        $stmt_verify->bind_param("s", $username);
+        $stmt_verify->bind_param("ss", $username, $prefixed_user_id);
         $stmt_verify->execute();
         $result = $stmt_verify->get_result();
 
@@ -55,7 +56,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 
         $newpassword_hash = password_hash($newpassword, PASSWORD_DEFAULT);
         $updated_at = date('Y-m-d H:i:s');
-        $sql_update = "UPDATE users SET password = ?, updated_at = ? WHERE username = ?";
+        $sql_update = "UPDATE users SET password = ?, updated_at = ? WHERE username = ? AND prefixed_user_id = ?";
         $stmt_update = $db1->prepare($sql_update);
 
         if ($stmt_update === false) {
@@ -64,7 +65,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $stmt_update->bind_param("sss", $newpassword_hash, $updated_at, $username);
+        $stmt_update->bind_param("ssss", $newpassword_hash, $updated_at, $username, $prefixed_user_id);
 
         if ($stmt_update->execute()) {
             echo json_encode(['success' => true, 'message' => 'Password updated successfully.']);

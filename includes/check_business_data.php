@@ -6,14 +6,15 @@ if (!defined('INSIDE_APP')) {
 
 function hasBusinessData()
 {
-    if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == 2) {
+    if (isset($_SESSION['prefixed_user_id']) && isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == 2) {
         $db2 = connectToDatabase('user_data');
         if ($db2 === null) {
             error_log("Database connection failed for business data check.");
             return false;
         }
 
-        $user_id = $_SESSION['id'];
+        $userId = $_SESSION['id'];
+        $prefixed_user_id = $_SESSION['prefixed_user_id'];
         $sql = "SELECT * FROM businesses WHERE fk_user_id = ? LIMIT 1";
         $stmt = $db2->prepare($sql);
 
@@ -23,7 +24,7 @@ function hasBusinessData()
             return false;
         }
 
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $prefixed_user_id);
         $stmt->execute();
         $result = $stmt->get_result();
 

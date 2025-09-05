@@ -13,6 +13,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $username = $_SESSION['username'];
         $userrole = $_SESSION['role'];
         $userID = $_SESSION['id'];
+        $prefixed_user_id = $_SESSION['prefixed_user_id'];
 
         if (empty($business_name) || empty($contact_number) || empty($category) || empty($address) || empty($full_name)) {
             echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -25,9 +26,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $sql_verify = "SELECT id FROM users WHERE username = ?";
+        $sql_verify = "SELECT id FROM users WHERE username = ? AND prefixed_user_id = ?";
         $stmt_verify = $db1->prepare($sql_verify);
-        $stmt_verify->bind_param("s", $username);
+        $stmt_verify->bind_param("ss", $username, $prefixed_user_id);
         $stmt_verify->execute();
         $result = $stmt_verify->get_result();
 
@@ -57,7 +58,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $stmt_update->bind_param("ssssssi", $business_name, $contact_number, $category, $address, $updated_at, $full_name, $userID);
+        $stmt_update->bind_param("sssssss", $business_name, $contact_number, $category, $address, $updated_at, $full_name, $prefixed_user_id);
 
         if ($stmt_update->execute()) {
             echo json_encode(['success' => true, 'message' => 'Data updated successfully.']);

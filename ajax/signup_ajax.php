@@ -73,7 +73,20 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $stmt->bind_param("sssi", $username, $email, $hashed_password, $role);
 
         if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Data Saved successfully.']);
+            $last_id = $db1->insert_id;
+            $prefix = 'USER3282-';
+            $prefixed_id = $prefix . $last_id;
+
+            $sql_update = "UPDATE users SET prefixed_user_id = ? WHERE id = ?";
+            $stmt_update = $db1->prepare($sql_update);
+            $stmt_update->bind_param("si", $prefixed_id, $last_id);
+
+            if ($stmt_update->execute()) {
+                echo json_encode(['success' => true, 'message' => 'Data Saved successfully with prefixed ID.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to update prefixed ID.']);
+            }
+            $stmt_update->close();
         } else {
             echo json_encode(['success' => false, 'message' => 'Something went wrong.']);
         }
