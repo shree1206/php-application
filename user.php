@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/check_business_data.php';
 $hasBusinessData = hasBusinessData();
 ?>
 <?php if (!$hasBusinessData): ?>
-    <?php require_once __DIR__ . '/customerPortal/business/addBusinessDetails.php'; ?>
+    <?php require_once __DIR__ . '/customerPortal/business/addBusinessDetails'; ?>
 <?php else: ?>
     <div class="alert alert-success mt-4">
         You have already registered your business! You can view or edit your details.

@@ -56,9 +56,6 @@ $first_argument = $url_segments[0];
                             <a class="nav-link" href="#">Manage Users</a>
                         </li>
                     <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">User Profile</a>
-                        </li>
                     <?php endif; ?>
                 </ul>
 
