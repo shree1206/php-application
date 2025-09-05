@@ -11,6 +11,7 @@ if (!defined('INSIDE_APP')) {
             <div id="message" class="mt-3 alert alert-danger alert-dismissible fade show" role="alert"
                 style="display: none;">
                 <span id="message-text"></span>
+                <span id="message-text2"></span>
             </div>
             <form id="registrationForm" method="post">
                 <div class="mb-3">

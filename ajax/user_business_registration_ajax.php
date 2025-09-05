@@ -11,6 +11,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $contact_number = $_POST['contact_number'];
         $category = $_POST['category'];
         $address = $_POST['address'];
+        $fk_user_id = $_SESSION['id'];
 
         if (empty($full_name) || empty($business_name) || empty($contact_number) || empty($category) || empty($address)) {
             echo json_encode(['success' => false, 'message' => 'All fields are required.']);
@@ -23,7 +24,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $sql = "INSERT INTO businesses (full_name, business_name, contact_number, category, address) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO businesses (full_name, business_name, contact_number, category, address, fk_user_id) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $db2->prepare($sql);
 
         if ($stmt === false) {
@@ -32,7 +33,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             exit;
         }
 
-        $stmt->bind_param("sssss", $full_name, $business_name, $contact_number, $category, $address);
+        $stmt->bind_param("sssssi", $full_name, $business_name, $contact_number, $category, $address, $fk_user_id);
 
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Data Saved successfully.']);

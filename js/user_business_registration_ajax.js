@@ -4,7 +4,7 @@
     const loader = document.getElementById('loader');
     const messageDiv = document.getElementById('message');
     const messageText = document.getElementById('message-text');
-
+    const messageText2 = document.getElementById('message-text2');
     registrationForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -26,10 +26,15 @@
             .then(data => {
                  messageDiv.style.display = 'block';
                 if (data.success) {
-                     messageDiv.classList.remove('alert-danger');
+                    registrationForm.reset();
+                    registrationForm.style.display = 'none';
+                    messageDiv.classList.remove('alert-danger');
                     messageDiv.classList.add('alert-success');
                     messageText.innerHTML = `<span style="color: green;">${data.message}</span>`;
-                    registrationForm.reset();
+                    messageText2.innerHTML = `<h5 style="color: blue;">Waiting....</h5>`;
+                    setTimeout(function() {
+                       window.location.href = './'; // Or '/your_new_page.php'
+                    }, 1500); // The delay is in milliseconds, so 3000ms is 3 seconds.
                 } else {
                     messageDiv.classList.remove('alert-success');
                     messageDiv.classList.add('alert-danger');
