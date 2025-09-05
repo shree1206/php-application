@@ -29,6 +29,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <div class="accordion" id="accordionActions">
 
             <div class="accordion-item">
+                <h2 class="accordion-header" id="headingContact">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseContact" aria-expanded="false" aria-controls="collapseContact">
+                        Contact
+                    </button>
+                </h2>
+                <div id="collapseContact" class="accordion-collapse collapse" aria-labelledby="headingContact"
+                    data-bs-parent="#accordionActions">
+                    <div class="accordion-body p-0">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#">Show</a></li>
+                            <li class="list-group-item"><a href="#">Add</a></li>
+                            <li class="list-group-item"><a href="#">Update</a></li>
+                            <li class="list-group-item"><a href="#">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="headingAdv">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseAdv" aria-expanded="false" aria-controls="collapseAdv">
