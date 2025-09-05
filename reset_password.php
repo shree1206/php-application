@@ -1,7 +1,6 @@
 <?php
 // Include database connection
 require_once __DIR__ . '/includes/connection.php';
-require_once __DIR__ . '/includes/header.php';
 // Check if the user is already logged in, then redirect to the welcome page
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: welcome");
@@ -73,7 +72,7 @@ if (isset($_GET['token'])) {
     $message = "Invalid request." . "<p>Already have an account? <a href='" . BASE_URL . "/login'>logIn Here</a></p>";
 }
 ?>
-
+<?php require_once __DIR__ . '/includes/header.php'; ?>
 <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
         <div class="card-body">
@@ -98,5 +97,4 @@ if (isset($_GET['token'])) {
         </div>
     </div>
 </div>
-
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

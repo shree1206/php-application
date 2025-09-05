@@ -34,21 +34,112 @@ if (!defined('APP_INIT')) {
             }
 
             .header {
-                background-color: var(--primary-color);
+                background-image: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+                /* A vibrant gradient background */
                 color: var(--light-color);
                 padding: 40px 20px;
                 text-align: center;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(106, 17, 203, 0.5);
+                /* A more prominent shadow with a glow */
+                display: flex;
+                /* Use Flexbox for alignment */
+                align-items: center;
+                /* Vertically center the items */
+                justify-content: center;
+                /* Horizontally center the content */
+                flex-direction: column;
+                /* Stack items vertically on smaller screens */
+                animation: fadeIn 1s ease-in-out;
+                /* Smooth fade-in animation */
             }
 
             .header h1 {
-                margin: 0 0 5px;
+                margin: 10px 0 5px;
+                /* Adjust margin for better spacing */
                 font-size: 2.5rem;
+                letter-spacing: 2px;
+                /* Add letter spacing for a premium feel */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                /* Subtle text shadow for depth */
             }
 
             .header p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                /* Slightly larger font for better readability */
                 opacity: 0.9;
+                font-style: italic;
+                /* Use italics for a more elegant look */
+            }
+
+            .header img {
+                height: 60px;
+                /* Slightly larger image */
+                margin-right: 15px;
+                /* More spacing to the right */
+                animation: bounceIn 1s ease-in-out;
+                /* A bouncy entry animation for the image */
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes bounceIn {
+
+                0%,
+                20%,
+                40%,
+                60%,
+                80%,
+                100% {
+                    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                }
+
+                0% {
+                    opacity: 0;
+                    transform: scale3d(0.3, 0.3, 0.3);
+                }
+
+                20% {
+                    transform: scale3d(1.1, 1.1, 1.1);
+                }
+
+                40% {
+                    transform: scale3d(0.9, 0.9, 0.9);
+                }
+
+                60% {
+                    opacity: 1;
+                    transform: scale3d(1.03, 1.03, 1.03);
+                }
+
+                80% {
+                    transform: scale3d(0.97, 0.97, 0.97);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale3d(1, 1, 1);
+                }
+            }
+
+            /* To handle the inline image and text on the same line for wider screens */
+            @media (min-width: 768px) {
+                .header {
+                    flex-direction: row;
+                }
+
+                .header h1 {
+                    margin-top: 0;
+                }
             }
 
             .container {
@@ -319,9 +410,11 @@ if (!defined('APP_INIT')) {
     </head>
 
     <body>
-
         <header class="header">
-            <h1>City Dictionary</h1>
+            <div class="header-content">
+                <img src="gif/phone.gif" alt="City icon GIF">
+                <h1>City Directory</h1>
+            </div>
             <p>Find the right people and places with our extensive database.</p>
         </header>
 
@@ -355,6 +448,7 @@ if (!defined('APP_INIT')) {
             <main class="main-content">
 
                 <div class="promo-card">
+                    <img src="gif/free.gif" alt="City icon GIF">
                     <h3>Free Advertising!</h3>
                     <p>Get your business listed on our platform for free. Reach thousands of customers in your area.</p>
                     <a href="login.php" class="promo-btn">Get Started Now</a>

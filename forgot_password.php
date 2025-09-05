@@ -1,7 +1,6 @@
 <?php
 // Include the database connection and Composer's autoloader
 require_once __DIR__ . '/includes/connection.php';
-require_once __DIR__ . '/includes/header.php';
 // Check if the user is already logged in, then redirect to the welcome page
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: welcome");
@@ -73,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<?php require_once __DIR__ . '/includes/header.php'; ?>
 <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
         <div class="card-body">
@@ -93,5 +93,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </div>
-
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
