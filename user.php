@@ -12,7 +12,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         exit;
     }
 }
-
 ?>
 <?php require_once __DIR__ . '/includes/header.php'; ?>
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
