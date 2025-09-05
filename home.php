@@ -203,7 +203,7 @@ if (!defined('APP_INIT')) {
                 width: 70px;
                 height: 70px;
                 margin-bottom: 10px;
-                border-radius: 50%;
+                border-radius: 20%;
                 object-fit: cover;
             }
 
@@ -283,6 +283,38 @@ if (!defined('APP_INIT')) {
                 width: 35px;
                 height: 35px;
             }
+
+            .call-btn {
+                position: fixed;
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+                z-index: 1000;
+                padding: 15px;
+                /* Updated Color: Vibrant Deep Red */
+                background-color: brown;
+                color: white;
+                border-radius: 8px;
+                /* Enhanced Shadow for a 'floating' look */
+                box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4);
+                text-decoration: none;
+                transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .call-btn:hover {
+                transform: translateY(-50%) scale(1.1);
+                background-color: #c82333;
+            }
+
+            /* Optional custom styles for the modal content */
+            .modal-body {
+                text-align: center;
+            }
+
+            .modal-body h4 {
+                color: #0d6efd;
+                font-weight: bold;
+            }
         </style>
     </head>
 
@@ -351,63 +383,63 @@ if (!defined('APP_INIT')) {
                         <span>Home Decor</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/6610f2/fff?text=Wed" alt="Wedding Planning"> -->
+                        <img src="./images/wedding.jpeg" alt="Wedding Planning">
                         <span>Wedding Planning</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/e83e8c/fff?text=Edu" alt="Education"> -->
+                        <img src="./images/school.jpeg" alt="Education">
                         <span>Education</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/fd7e14/fff?text=Rent" alt="Rent & Hire"> -->
+                        <img src="./images/rent.jpeg" alt="Rent & Hire">
                         <span>Rent & Hire</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/20c997/fff?text=Hosp" alt="Hospitals"> -->
+                        <img src="./images/hospital.jpeg" alt="Hospitals">
                         <span>Hospitals</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/6c757d/fff?text=Cont" alt="Contractors"> -->
+                        <img src="./images/contractors.jpeg" alt="Contractors">
                         <span>Contractors</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/343a40/fff?text=Pet" alt="Pet Shops"> -->
+                        <img src="./images/petshop.jpeg" alt="Pet Shops">
                         <span>Pet Shops</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/007bff/fff?text=Hostel" alt="PG/Hostels"> -->
+                        <img src="./images/pg.jpeg" alt="PG/Hostels">
                         <span>PG/Hostels</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/28a745/fff?text=Agent" alt="Estate Agent"> -->
-                        <span>Estate Agent</span>
+                        <img src="./images/beautyparlor.jpeg" alt="Beauty Parlor">
+                        <span>Beauty Parlor</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/dc3545/fff?text=Dent" alt="Dentists"> -->
+                        <img src="./images/dentist.jpeg" alt="Dentists">
                         <span>Dentists</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/ffc107/fff?text=Gym" alt="Gym"> -->
+                        <img src="./images/gym.jpeg" alt="Gym">
                         <span>Gym</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/17a2b8/fff?text=Loan" alt="Loans"> -->
+                        <img src="./images/loan.jpeg" alt="Loans">
                         <span>Loans</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/6610f2/fff?text=Event" alt="Event Organisers"> -->
-                        <span>Event Organisers</span>
+                        <img src="./images/doctors.jpeg" alt="Doctors">
+                        <span>Doctors</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/e83e8c/fff?text=Drive" alt="Driving Schools"> -->
+                        <img src="./images/drivingschool.jpeg" alt="Driving Schools">
                         <span>Driving Schools</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/fd7e14/fff?text=Pack" alt="Packers & Movers"> -->
+                        <img src="./images/packerandmover.jpeg" alt="Packers & Movers">
                         <span>Packers & Movers</span>
                     </div>
                     <div class="category-card">
-                        <!-- <img src="https://via.placeholder.com/50/20c997/fff?text=Courier" alt="Courier Service"> -->
+                        <img src="./images/courier.jpeg" alt="Courier Service">
                         <span>Courier Service</span>
                     </div>
                 </div>
@@ -419,6 +451,12 @@ if (!defined('APP_INIT')) {
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png"
                 alt="WhatsApp" class="whatsapp-icon">
         </a>
+
+        <a href="tel:+91XXXXXXXXXX" class="call-btn">
+            <i class="fa fa-phone"></i> Call Us
+        </a>
+
+
     </body>
 
     </html>
