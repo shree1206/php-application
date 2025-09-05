@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/connection.php';
 
 // Check if the user is already logged in, then redirect to the welcome page
 if (!isset($_SESSION['loggedin']) && !$_SESSION['loggedin'] === true) {
-    header("location: ./");
+    header("location: logout");
     exit;
 }
 ?>
