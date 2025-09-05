@@ -14,7 +14,7 @@ function hasBusinessData()
         }
 
         $user_id = $_SESSION['id'];
-        $sql = "SELECT fk_user_id FROM businesses WHERE fk_user_id = ? LIMIT 1";
+        $sql = "SELECT * FROM businesses WHERE fk_user_id = ? LIMIT 1";
         $stmt = $db2->prepare($sql);
 
         if ($stmt === false) {
@@ -28,11 +28,17 @@ function hasBusinessData()
         $result = $stmt->get_result();
 
         $dataFound = ($result->num_rows > 0);
-
+        $businessData = '';
+        if ($dataFound) {
+            $businessData = $result->fetch_assoc();
+        }
         $stmt->close();
         $db2->close();
 
-        return $dataFound;
+        return [
+            'businessData' => $businessData,
+            'dataFound' => $dataFound,
+        ];
     } else {
         return false;
     }

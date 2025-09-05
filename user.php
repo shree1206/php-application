@@ -19,7 +19,7 @@ define('INSIDE_APP', true);
 require_once __DIR__ . '/includes/check_business_data.php';
 $hasBusinessData = hasBusinessData();
 ?>
-<?php if (!$hasBusinessData): ?>
+<?php if (!$hasBusinessData['dataFound']): ?>
     <?php require_once __DIR__ . '/customerPortal/business/addBusinessDetails.php'; ?>
 <?php else: ?>
     <style>
@@ -90,7 +90,13 @@ $hasBusinessData = hasBusinessData();
     <div class="container d-flex justify-content-center align-items-center">
         <div class="card shadow-sm" style="width: 100%; max-width: 400px;">
             <div class="card-body">
-                <h5 class="card-title text-center">Business Information</h5>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">Business Information</h5>
+                    <a href="<?php echo BASE_URL; ?>/customerportal/business/edit_business"
+                        class="btn btn-sm btn-outline-secondary">
+                        <i class="fa fa-pencil"></i> Edit
+                    </a>
+                </div>
 
                 <div id="loader" class="text-center my-4" style="display: none;">
                     <div class="spinner-border text-primary" role="status">
