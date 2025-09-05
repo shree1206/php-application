@@ -23,79 +23,16 @@ $first_argument = $url_segments[0];
 <html lang="en">
 
 <head>
-    <title>Application</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caller Dictionary - Home</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <?php echo '<link rel="stylesheet" href="/application/css/home.style.css">'; ?>
+    <?php echo '<link rel="stylesheet" href="/application/css/navbar.style.css">'; ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        /* Custom CSS for a vibrant and crazy navbar */
-        .navbar {
-            background-image: linear-gradient(to right, #8A2BE2, #FF1493, #00BFFF);
-            animation: crazyGradient 10s ease infinite;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s ease;
-        }
-
-        .navbar-brand,
-        .nav-link {
-            color: white !important;
-            /* Force text to be white for contrast */
-            font-weight: bold;
-            transition: transform 0.3s ease;
-        }
-
-        .navbar-brand:hover,
-        .nav-link:hover {
-            transform: scale(1.1);
-            /* Pop-up effect on hover */
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-        }
-
-        .nav-link.btn {
-            border-radius: 50px;
-            /* Make buttons round */
-            padding: 8px 20px;
-        }
-
-        .btn-primary {
-            background-color: #FFD700 !important;
-            /* Gold button color */
-            border-color: #FFD700 !important;
-            color: #333 !important;
-        }
-
-        .btn-primary:hover {
-            background-color: #FFA500 !important;
-            border-color: #FFA500 !important;
-            transform: scale(1.05);
-        }
-
-        .btn-outline-light {
-            color: white !important;
-            border-color: white !important;
-        }
-
-        .btn-outline-light:hover {
-            background-color: rgba(255, 255, 255, 0.2) !important;
-            transform: scale(1.05);
-        }
-
-        @keyframes crazyGradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-    </style>
 </head>
 
 <body>

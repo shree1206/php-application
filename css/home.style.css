@@ -1,0 +1,392 @@
+ :root {
+                --primary-color: #3f51b5;
+                --secondary-color: #f5f5f5;
+                --dark-color: #333;
+                --light-color: #fff;
+                --font-main: 'Poppins', sans-serif;
+                --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            /* ----- Global Styles & Layout ----- */
+            body {
+                font-family: var(--font-main);
+                margin: 0;
+                padding: 0;
+                background-color: var(--secondary-color);
+                color: var(--dark-color);
+            }
+
+            .header {
+                background-image: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+                /* A vibrant gradient background */
+                color: var(--light-color);
+                padding: 40px 20px;
+                text-align: center;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(106, 17, 203, 0.5);
+                /* A more prominent shadow with a glow */
+                display: flex;
+                /* Use Flexbox for alignment */
+                align-items: center;
+                /* Vertically center the items */
+                justify-content: center;
+                /* Horizontally center the content */
+                flex-direction: column;
+                /* Stack items vertically on smaller screens */
+                animation: fadeIn 1s ease-in-out;
+                /* Smooth fade-in animation */
+            }
+
+            .header h1 {
+                margin: 10px 0 5px;
+                /* Adjust margin for better spacing */
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+                /* Add letter spacing for a premium feel */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                /* Subtle text shadow for depth */
+            }
+
+            .header p {
+                font-size: 1.2rem;
+                /* Slightly larger font for better readability */
+                opacity: 0.9;
+                font-style: italic;
+                /* Use italics for a more elegant look */
+            }
+
+            .header img {
+                height: 60px;
+                /* Slightly larger image */
+                margin-right: 15px;
+                /* More spacing to the right */
+                animation: bounceIn 1s ease-in-out;
+                /* A bouncy entry animation for the image */
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes bounceIn {
+
+                0%,
+                20%,
+                40%,
+                60%,
+                80%,
+                100% {
+                    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                }
+
+                0% {
+                    opacity: 0;
+                    transform: scale3d(0.3, 0.3, 0.3);
+                }
+
+                20% {
+                    transform: scale3d(1.1, 1.1, 1.1);
+                }
+
+                40% {
+                    transform: scale3d(0.9, 0.9, 0.9);
+                }
+
+                60% {
+                    opacity: 1;
+                    transform: scale3d(1.03, 1.03, 1.03);
+                }
+
+                80% {
+                    transform: scale3d(0.97, 0.97, 0.97);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale3d(1, 1, 1);
+                }
+            }
+
+            /* To handle the inline image and text on the same line for wider screens */
+            @media (min-width: 768px) {
+                .header {
+                    flex-direction: row;
+                }
+
+                .header h1 {
+                    margin-top: 0;
+                }
+            }
+
+            .container {
+                display: flex;
+                gap: 20px;
+                max-width: 1400px;
+                margin: 20px auto;
+                padding: 0 20px;
+            }
+
+            /* ----- Sidebar Filter Section ----- */
+            .sidebar {
+                flex: 0 0 250px;
+                background-color: var(--light-color);
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: var(--card-shadow);
+                height: fit-content;
+            }
+
+            .sidebar h3 {
+                margin-top: 0;
+                border-bottom: 2px solid var(--primary-color);
+                padding-bottom: 10px;
+                font-size: 1.2rem;
+            }
+
+            .sidebar ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .sidebar li {
+                padding: 10px 0;
+                cursor: pointer;
+                transition: color 0.3s ease;
+            }
+
+            .sidebar li:hover {
+                color: var(--primary-color);
+            }
+
+            /* ----- Category Cards Layout ----- */
+            .main-content {
+                flex: 1;
+            }
+
+            .main-content h2 {
+                margin-top: 0;
+                color: var(--primary-color);
+            }
+
+            /* ----- Free Advertising Card ----- */
+            .promo-card {
+                background-color: #28a745;
+                color: var(--light-color);
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: var(--card-shadow);
+                text-align: center;
+                margin-bottom: 20px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .promo-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .promo-card h3 {
+                margin: 0 0 10px;
+                font-size: 2rem;
+            }
+
+            .promo-card p {
+                margin-bottom: 20px;
+                opacity: 0.9;
+            }
+
+            .promo-card a.promo-btn {
+                display: inline-block;
+                background-color: var(--light-color);
+                color: #28a745;
+                padding: 10px 25px;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: background-color 0.3s ease;
+            }
+
+            .promo-card a.promo-btn:hover {
+                background-color: #e2e6ea;
+            }
+
+            .categories-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(150px, 1fr));
+                gap: 30px;
+                text-align: center;
+            }
+
+            @media (max-width: 992px) {
+                .categories-grid {
+                    /* On medium screens, show 3 columns */
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .categories-grid {
+                    /* On tablet screens, show 2 columns */
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+
+            @media (max-width: 576px) {
+                .categories-grid {
+                    /* On mobile screens, show 1 column */
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            /* ----- Category Cards Styling & Animations ----- */
+            .category-card {
+                background-color: var(--light-color);
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: var(--card-shadow);
+                cursor: pointer;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+                /* Initial state for animation */
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.8s ease forwards;
+            }
+
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .category-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--card-hover-shadow);
+            }
+
+            .category-card img {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 10px;
+                border-radius: 20%;
+                object-fit: cover;
+            }
+
+            .category-card span {
+                display: block;
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: var(--dark-color);
+                word-wrap: break-word;
+            }
+
+            /* ----- Responsive Filter Button ----- */
+            .filter-btn {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                background-color: var(--primary-color);
+                color: var(--light-color);
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                    padding: 10px;
+                }
+
+                .sidebar {
+                    position: fixed;
+                    top: 0;
+                    left: -300px;
+                    width: 250px;
+                    height: 100%;
+                    z-index: 999;
+                    transition: left 0.3s ease;
+                    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .sidebar.active {
+                    left: 0;
+                }
+
+                .filter-btn {
+                    display: block;
+                }
+            }
+
+            .whatsapp-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 1000;
+                width: 60px;
+                height: 60px;
+                background-color: #25d366;
+                border-radius: 50%;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: transform 0.3s ease;
+            }
+
+            .whatsapp-btn:hover {
+                transform: scale(1.1);
+            }
+
+            .whatsapp-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .call-btn {
+                position: fixed;
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+                z-index: 1000;
+                padding: 15px;
+                /* Updated Color: Vibrant Deep Red */
+                background-color: brown;
+                color: white;
+                border-radius: 8px;
+                /* Enhanced Shadow for a 'floating' look */
+                box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4);
+                text-decoration: none;
+                transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .call-btn:hover {
+                transform: translateY(-50%) scale(1.1);
+                background-color: #c82333;
+            }
+
+            /* Optional custom styles for the modal content */
+            .modal-body {
+                text-align: center;
+            }
+
+            .modal-body h4 {
+                color: #0d6efd;
+                font-weight: bold;
+            }

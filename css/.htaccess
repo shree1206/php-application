@@ -1,4 +1,3 @@
 Options -Indexes
-Deny from all
 ErrorDocument 403 /application/404.php
 ErrorDocument 404 /application/404.php
