@@ -68,12 +68,26 @@ $first_argument = $url_segments[0];
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['loggedin'])): ?>
                         <li class="nav-item d-flex align-items-center">
-                            <span class="navbar-text me-2 text-white">Welcome,
-                                <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                            <span class="navbar-text me-2 text-white">Welcome</span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light" href="<?php echo BASE_URL; ?>/logout">Logout</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="settingsDropdown">
+                                <li><a class="dropdown-item" href="#">Password Change</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>/logout">Logout</a>
+                                </li>
+                            </ul>
                         </li>
+
+
                     <?php else: ?>
                         <li class="nav-item">
                             <?php if ($first_argument == 'signup' || $first_argument == ''): ?>
