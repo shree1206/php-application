@@ -24,7 +24,7 @@ function hasBusinessData()
             return false;
         }
 
-        $stmt->bind_param("i", $prefixed_user_id);
+        $stmt->bind_param("s", $prefixed_user_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
