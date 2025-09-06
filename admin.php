@@ -20,10 +20,38 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     require_once __DIR__ . '/adminPortal/sidebarSection/actionSidebarData.php'; ?>
 
     <main class="main-content">
-        <div class="promo-card">
+        <div class="promo-card" id="dynamic-content-area">
             <h3>Work Area!</h3>
         </div>
     </main>
+
+    <script>
+        function loadContent(filePath) {
+            fetch('load_dynamic_content_admin.php?file=' + encodeURIComponent(filePath), {
+                method: 'GET',
+
+                // Add a custom header to identify the AJAX request on the server side
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    document.getElementById('dynamic-content-area').innerHTML = content;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    document.getElementById('dynamic-content-area').innerHTML = 'An error occurred while loading content.';
+                });
+        }
+    </script>
+
+
 </div>
 <button class="filter-btn" onclick="document.getElementById('filterSidebar').classList.toggle('active');">☰</button>
 
