@@ -21,8 +21,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     ?>
 
     <main class="main-content">
-        <div class="promo-card" id="dynamic-content-area">
-            <h3>Work Area!</h3>
+        <div id="dynamic-content-area">
+
         </div>
     </main>
 
