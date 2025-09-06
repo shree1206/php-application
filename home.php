@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/connection.php';
 if (!defined('APP_INIT')) {
     header("location: 404");
     exit;
@@ -10,36 +11,13 @@ if (!defined('APP_INIT')) {
         </div>
         <p>Find the right people and places with our extensive database.</p>
     </header>
-
     <div class="container">
-        <aside class="sidebar" id="filterSidebar">
-            <h3>Filter by Category</h3>
-            <ul>
-                <li>CCTV & Security Solutions</li>
-                <li>Restaurants</li>
-                <li>Hotels</li>
-                <li>Beauty Spa</li>
-                <li>Home Decor</li>
-                <li>Wedding Planning</li>
-                <li>Education</li>
-                <li>Rent & Hire</li>
-                <li>Hospitals</li>
-                <li>Contractors</li>
-                <li>Pet Shops</li>
-                <li>PG/Hostels</li>
-                <li>Estate Agent</li>
-                <li>Dentists</li>
-                <li>Gym</li>
-                <li>Loans</li>
-                <li>Event Organisers</li>
-                <li>Driving Schools</li>
-                <li>Packers & Movers</li>
-                <li>Courier Service</li>
-            </ul>
-        </aside>
-
+        <?php define('INSIDE_APP', true);
+        require_once __DIR__ . '/checkFilterSidebarData.php';
+        $sidebarData = hasSideBarData();
+        require_once __DIR__ . '/filterSidebarData.php';
+        ?>
         <main class="main-content">
-
             <div class="promo-card">
                 <img src="gif/free.gif" alt="City icon GIF">
                 <h3>Free Advertising!</h3>
@@ -49,86 +27,17 @@ if (!defined('APP_INIT')) {
 
             <h2>Popular Categories</h2>
             <div class="categories-grid">
-                <div class="category-card">
-                    <img src="./images/cctv.jpg" alt="CCTV & Security Solutions">
-                    <span>CCTV</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/restaurant.jpg" alt="Restaurants">
-                    <span>Restaurants</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/hotels.jpg" alt="Hotels">
-                    <span>Hotels</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/spa.jpeg" alt="Beauty Spa">
-                    <span>Beauty Spa</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/homedecor.jpeg" alt="Home Decor">
-                    <span>Home Decor</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/wedding.jpeg" alt="Wedding Planning">
-                    <span>Wedding Planning</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/school.jpeg" alt="Education">
-                    <span>Education</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/rent.jpeg" alt="Rent & Hire">
-                    <span>Rent & Hire</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/hospital.jpeg" alt="Hospitals">
-                    <span>Hospitals</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/contractors.jpeg" alt="Contractors">
-                    <span>Contractors</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/petshop.jpeg" alt="Pet Shops">
-                    <span>Pet Shops</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/pg.jpeg" alt="PG/Hostels">
-                    <span>PG/Hostels</span>
-                </div>
-                <!-- <div class="category-card">
-                    <img src="./images/beautyparlor.jpeg" alt="Beauty Parlor">
-                    <span>Beauty Parlor</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/dentist.jpeg" alt="Dentists">
-                    <span>Dentists</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/gym.jpeg" alt="Gym">
-                    <span>Gym</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/loan.jpeg" alt="Loans">
-                    <span>Loans</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/doctors.jpeg" alt="Doctors">
-                    <span>Doctors</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/drivingschool.jpeg" alt="Driving Schools">
-                    <span>Driving Schools</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/packerandmover.jpeg" alt="Packers & Movers">
-                    <span>Packers & Movers</span>
-                </div>
-                <div class="category-card">
-                    <img src="./images/courier.jpeg" alt="Courier Service">
-                    <span>Courier Service</span>
-                </div> -->
+                <?php if ($sidebarData['popularDataFound']): ?>
+                    <?php foreach ($sidebarData['popularData'] as $popularData): ?>
+                        <div class="category-card">
+                            <img src="./images/<?php echo htmlspecialchars($popularData['categories_img_url']); ?>"
+                                alt="CCTV & Security Solutions">
+                            <span><?php echo htmlspecialchars($popularData['categories_name']); ?></span>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No Data Found.</p>
+                <?php endif; ?>
             </div>
         </main>
     </div>
