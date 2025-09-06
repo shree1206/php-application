@@ -97,7 +97,7 @@ if (!defined('APP_INIT')) {
                     <img src="./images/pg.jpeg" alt="PG/Hostels">
                     <span>PG/Hostels</span>
                 </div>
-                <div class="category-card">
+                <!-- <div class="category-card">
                     <img src="./images/beautyparlor.jpeg" alt="Beauty Parlor">
                     <span>Beauty Parlor</span>
                 </div>
@@ -128,7 +128,7 @@ if (!defined('APP_INIT')) {
                 <div class="category-card">
                     <img src="./images/courier.jpeg" alt="Courier Service">
                     <span>Courier Service</span>
-                </div>
+                </div> -->
             </div>
         </main>
     </div>
