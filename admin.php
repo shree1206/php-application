@@ -25,11 +25,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
     </main>
 </div>
-<script>
-    function toggleDropdown(element) {
-        const dropdown = element.querySelector('.dropdown-menu');
-        dropdown.classList.toggle('show');
-    }</script>
 <button class="filter-btn" onclick="document.getElementById('filterSidebar').classList.toggle('active');">☰</button>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

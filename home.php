@@ -134,14 +134,4 @@ if (!defined('APP_INIT')) {
     </div>
 
     <button class="filter-btn" onclick="document.getElementById('filterSidebar').classList.toggle('active');">☰</button>
-    <a href="https://wa.me/917906466763" class="whatsapp-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png"
-            alt="WhatsApp" class="whatsapp-icon">
-    </a>
-
-    <a href="tel:+91XXXXXXXXXX" class="call-btn">
-        <i class="fa fa-phone"></i> Call Us
-    </a>
-
-
 <?php } ?>
