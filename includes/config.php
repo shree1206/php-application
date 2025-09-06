@@ -61,6 +61,12 @@ define('DB_CONFIG', [
         'password' => '',
         'db_name' => 'user_data'
     ],
+    'admin-application' => [
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'db_name' => 'admin-application'
+    ],
 ]);
 
 //smtp
