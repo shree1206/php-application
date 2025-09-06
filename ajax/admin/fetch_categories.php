@@ -2,12 +2,15 @@
 ob_start();
 require_once __DIR__ . '/../../includes/connection.php';
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['role']) && $_SESSION['role'] == 1) {
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['role']) && $_SESSION['role'] == 1) {
 
     if ($_SESSION['loggedin'] === true) {
-        // Get sorting parameters from URL
+        // Get sorting and pagination parameters from URL
         $sort_by = $_GET['sort_by'] ?? 'categories_name';
         $order = $_GET['order'] ?? 'ASC';
+        $page = (int) ($_GET['page'] ?? 1);
+        $limit = 10; // Number of items per page
+        $offset = ($page - 1) * $limit;
 
         // Validate sorting parameters to prevent SQL injection
         $allowed_columns = ['categories_name', 'categories_created_at', 'categories_updated_at'];
@@ -24,8 +27,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SE
             exit;
         }
 
-        $sql = "SELECT categories_name, categories_created_at, categories_updated_at FROM categories ORDER BY " . $db3->real_escape_string($sort_by) . " " . $db3->real_escape_string($order);
-        $result = $db3->query($sql);
+        // First query to get the total number of records
+        $countSql = "SELECT COUNT(*) AS total_records FROM categories";
+        $countResult = $db3->query($countSql);
+        $totalRecords = $countResult->fetch_assoc()['total_records'];
+
+        // Second query to get the paginated and sorted data
+        $sql = "SELECT categories_name, categories_created_at, categories_updated_at 
+        FROM categories 
+        ORDER BY " . $db3->real_escape_string($sort_by) . " " . $db3->real_escape_string($order) . " 
+        LIMIT ? OFFSET ?";
+        $stmt = $db3->prepare($sql);
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         $categories = [];
         if ($result->num_rows > 0) {
@@ -34,9 +49,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SE
             }
         }
 
+        $stmt->close();
         $db3->close();
 
-        echo json_encode(['data' => $categories]);
+        echo json_encode([
+            'data' => $categories,
+            'total_records' => $totalRecords,
+            'current_page' => $page,
+            'total_pages' => ceil($totalRecords / $limit)
+        ]);
     } else {
         echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
     }

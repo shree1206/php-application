@@ -5,17 +5,17 @@ if (!defined('INSIDE_APP')) {
 } ?>
 <script>
     // The variables are already correctly declared
-    const categoryForm = document.getElementById('categoryForm');
-    const saveBtn = document.getElementById('saveBtn');
-    const buttonText = document.getElementById('button-text');
-    const spinner = document.getElementById('spinner');
-    const progressBar = document.querySelector('.progress');
-    const progressBarInner = document.querySelector('.progress-bar');
-    const alertMessage = document.getElementById('alert-message');
+    var categoryForm = document.getElementById('categoryForm');
+    var saveBtn = document.getElementById('saveBtn');
+    var buttonText = document.getElementById('button-text');
+    var spinner = document.getElementById('spinner');
+    var progressBar = document.querySelector('.progress');
+    var progressBarInner = document.querySelector('.progress-bar');
+    var alertMessage = document.getElementById('alert-message');
 
     categoryForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        const form = event.target;
+        var form = event.target;
 
         // Disable button and show spinner
         saveBtn.disabled = true;
@@ -31,8 +31,8 @@ if (!defined('INSIDE_APP')) {
         alertMessage.style.display = 'none';
 
         // Create a new XMLHttpRequest object for progress tracking
-        const request = new XMLHttpRequest();
-        const formData = new FormData(form);
+        var request = new XMLHttpRequest();
+        var formData = new FormData(form);
 
         request.open('POST', '/application/ajax/admin/upload_category.php', true);
 
@@ -40,7 +40,7 @@ if (!defined('INSIDE_APP')) {
         // Track upload progress
         request.upload.addEventListener('progress', function (e) {
             if (e.lengthComputable) {
-                const percent = (e.loaded / e.total) * 100;
+                var percent = (e.loaded / e.total) * 100;
                 progressBarInner.style.width = percent + '%';
                 progressBarInner.setAttribute('aria-valuenow', percent);
             }
@@ -56,7 +56,7 @@ if (!defined('INSIDE_APP')) {
 
             if (request.status === 200) {
                 try {
-                    const response = JSON.parse(request.responseText);
+                    var response = JSON.parse(request.responseText);
                     alertMessage.textContent = response.message;
                     alertMessage.style.display = 'block';
                     alertMessage.className = 'alert ' + (response.success ? 'alert-success' : 'alert-danger');
