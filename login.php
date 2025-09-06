@@ -34,6 +34,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <p class="text-center mt-3">
                 Forgot Password? <a href="<?php echo BASE_URL; ?>/forgot_password">Click Here</a>
             </p>
+
+            <p class="text-center mt-3">
+                If you don't have an account <a href="<?php echo BASE_URL; ?>/signup">Signup Here</a>
+            </p>
             <div id="loader" class="text-center mt-3" style="display:none;">Loading...</div>
         </div>
     </div>

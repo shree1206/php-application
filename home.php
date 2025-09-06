@@ -44,7 +44,7 @@ if (!defined('APP_INIT')) {
                 <img src="gif/free.gif" alt="City icon GIF">
                 <h3>Free Advertising!</h3>
                 <p>Get your business listed on our platform for free. Reach thousands of customers in your area.</p>
-                <a href="login.php" class="promo-btn">Get Started Now</a>
+                <a href="login" class="promo-btn">Get Started Now</a>
             </div>
 
             <h2>Popular Categories</h2>
