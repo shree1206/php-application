@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/connection.php';
-// Check if the user is logged in, if not then redirect to login page
+
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("location: logout");
     exit;
@@ -17,7 +17,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     define('INSIDE_APP', true);
     require_once __DIR__ . '/adminPortal/sidebarSection/checkActionSidebarData.php';
     $sidebarData = hasSideBarData();
-    require_once __DIR__ . '/adminPortal/sidebarSection/actionSidebarData.php'; ?>
+    require_once __DIR__ . '/adminPortal/sidebarSection/actionSidebarData.php';
+    ?>
 
     <main class="main-content">
         <div class="promo-card" id="dynamic-content-area">
@@ -25,33 +26,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
     </main>
 
-    <script>
-        function loadContent(filePath) {
-            fetch('load_dynamic_content_admin.php?file=' + encodeURIComponent(filePath), {
-                method: 'GET',
-
-                // Add a custom header to identify the AJAX request on the server side
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(content => {
-                    document.getElementById('dynamic-content-area').innerHTML = content;
-                })
-                .catch(error => {
-                    console.error('Error loading content:', error);
-                    document.getElementById('dynamic-content-area').innerHTML = 'An error occurred while loading content.';
-                });
-        }
-    </script>
-
-
+    <script src="/application/js/admin/load_dynamic_content_admin.js"></script>
 </div>
 <button class="filter-btn" onclick="document.getElementById('filterSidebar').classList.toggle('active');">☰</button>
 
