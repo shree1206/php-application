@@ -27,7 +27,8 @@ if (!defined('INSIDE_APP')) {
                                 <?php if (!empty($action['options'])): ?>
                                     <?php foreach ($action['options'] as $option): ?>
                                         <li class="list-group-item" style="padding-left: 20px !important;">
-                                            <a href="#" style="text-decoration: none;">
+                                            <a href="adminPortal/<?php echo $action['action_name'] . '/' . $option['action_option_name'] ?>"
+                                                style="text-decoration: none;">
                                                 <?php echo htmlspecialchars($option['action_option_name']); ?>
                                             </a>
                                         </li>
