@@ -3,6 +3,11 @@ ob_start();
 require_once __DIR__ . '/../../includes/connection.php';
 
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['role']) && $_SESSION['role'] == 1) {
+
+    // Set the content type header for JSON responses
+    header('Content-Type: application/json');
+
+    // --- Handle GET Requests (for fetching data) ---
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Get sorting and pagination parameters from URL
         $sort_by = $_GET['sort_by'] ?? 'categories_name';
@@ -32,10 +37,10 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $totalRecords = $countResult->fetch_assoc()['total_records'];
 
         // Second query to get the paginated and sorted data
-        $sql = "SELECT * 
-        FROM categories 
-        ORDER BY " . $db3->real_escape_string($sort_by) . " " . $db3->real_escape_string($order) . " 
-        LIMIT ? OFFSET ?";
+        $sql = "SELECT categories_id, categories_name, categories_created_at, categories_updated_at, categories_status 
+                FROM categories 
+                ORDER BY " . $db3->real_escape_string($sort_by) . " " . $db3->real_escape_string($order) . " 
+                LIMIT ? OFFSET ?";
         $stmt = $db3->prepare($sql);
         $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
@@ -57,11 +62,13 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             'current_page' => $page,
             'total_pages' => ceil($totalRecords / $limit)
         ]);
-        header('Content-Type: application/json');
         ob_end_flush();
         exit;
-    } else {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['statusupdate'])) {
+    }
+
+    // --- Handle POST Requests (for updating data) ---
+    else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['statusupdate'])) {
             $db3 = connectToDatabase('admin-application');
             if ($db3 === null) {
                 echo json_encode(['success' => false, 'message' => 'Database connection failed.']);
@@ -87,12 +94,18 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             }
 
             $db3->close();
-            header('Content-Type: application/json');
-            ob_end_flush();
-            exit;
         } else {
-            echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+            echo json_encode(['success' => false, 'message' => 'Invalid POST request.']);
         }
+        ob_end_flush();
+        exit;
+    }
+
+    // Fallback for any other request method
+    else {
+        echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+        ob_end_flush();
+        exit;
     }
 } else {
     header("Location: ../index.php");
