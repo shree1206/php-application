@@ -47,6 +47,7 @@ if (!defined('INSIDE_APP')) {
                                     Updated At
                                     <i class="fa fa-sort"></i>
                                 </th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>`;
@@ -59,6 +60,13 @@ if (!defined('INSIDE_APP')) {
                                 <td>${category.categories_name}</td>
                                 <td>${category.categories_created_at}</td>
                                 <td>${category.categories_updated_at}</td>
+                                <td>
+                                    <button class="btn btn-sm ${category.categories_status == 1 ? 'btn-success' : 'btn-secondary'} btn-status" 
+                                            data-id="${category.categories_id}" 
+                                            data-status="${category.categories_status}">
+                                        ${category.categories_status == 1 ? 'Active' : 'Inactive'}
+                                    </button>
+                                </td>
                             </tr>`;
                     });
                 } else {
@@ -69,16 +77,23 @@ if (!defined('INSIDE_APP')) {
                 tableHtml += renderPagination(data.total_pages, data.current_page); // Add pagination links
                 tableContainer.innerHTML = tableHtml;
 
-                // Add event listeners to the new sortable headers
+                document.querySelectorAll('.btn-status').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const id = this.getAttribute('data-id');
+                        const currentStatus = this.getAttribute('data-status');
+                        const newStatus = currentStatus == 1 ? 0 : 1;
+                        updateStatus(id, newStatus);
+                    });
+                });
+
                 document.querySelectorAll('.sortable').forEach(header => {
                     header.addEventListener('click', function () {
                         var newSortBy = this.getAttribute('data-sort');
                         var newOrder = this.getAttribute('data-order');
-                        fetchCategories(newSortBy, newOrder, 1); // Reset to page 1 on sort
+                        fetchCategories(newSortBy, newOrder, 1);
                     });
                 });
 
-                // Add event listeners to pagination links
                 document.querySelectorAll('.page-link').forEach(link => {
                     link.addEventListener('click', function (e) {
                         e.preventDefault();
@@ -119,4 +134,31 @@ if (!defined('INSIDE_APP')) {
         return paginationHtml;
     }
 
+    function updateStatus(id, newStatus) {
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('status', newStatus);
+        formData.append('statusupdate', true);
+        fetch('/application/ajax/admin/fetch_categories.php', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Reload the table to reflect the change
+                    fetchCategories(currentSortBy, currentOrder, currentPage);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('AJAX Error:', error);
+                alert('An error occurred during the update.');
+            });
+    }
 </script>

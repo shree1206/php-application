@@ -2,9 +2,8 @@
 ob_start();
 require_once __DIR__ . '/../../includes/connection.php';
 
-if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && $_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['role']) && $_SESSION['role'] == 1) {
-
-    if ($_SESSION['loggedin'] === true) {
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['role']) && $_SESSION['role'] == 1) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Get sorting and pagination parameters from URL
         $sort_by = $_GET['sort_by'] ?? 'categories_name';
         $order = $_GET['order'] ?? 'ASC';
@@ -33,7 +32,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
         $totalRecords = $countResult->fetch_assoc()['total_records'];
 
         // Second query to get the paginated and sorted data
-        $sql = "SELECT categories_name, categories_created_at, categories_updated_at 
+        $sql = "SELECT * 
         FROM categories 
         ORDER BY " . $db3->real_escape_string($sort_by) . " " . $db3->real_escape_string($order) . " 
         LIMIT ? OFFSET ?";
@@ -58,12 +57,43 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
             'current_page' => $page,
             'total_pages' => ceil($totalRecords / $limit)
         ]);
+        header('Content-Type: application/json');
+        ob_end_flush();
+        exit;
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['statusupdate'])) {
+            $db3 = connectToDatabase('admin-application');
+            if ($db3 === null) {
+                echo json_encode(['success' => false, 'message' => 'Database connection failed.']);
+                exit;
+            }
+
+            $id = (int) ($_POST['id'] ?? 0);
+            $status = (int) ($_POST['status'] ?? 0);
+
+            if ($id > 0) {
+                $sql = "UPDATE categories SET categories_status = ? WHERE categories_id = ?";
+                $stmt = $db3->prepare($sql);
+                $stmt->bind_param("ii", $status, $id);
+
+                if ($stmt->execute()) {
+                    echo json_encode(['success' => true, 'message' => 'Status updated successfully.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Failed to update status.']);
+                }
+                $stmt->close();
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Invalid category ID.']);
+            }
+
+            $db3->close();
+            header('Content-Type: application/json');
+            ob_end_flush();
+            exit;
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+        }
     }
-    header('Content-Type: application/json');
-    ob_end_flush();
-    exit;
 } else {
     header("Location: ../index.php");
     exit;
